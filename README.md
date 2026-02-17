@@ -157,8 +157,8 @@ Se non riesci ad accedere all'interfaccia web (`http://localhost/admin`), non pr
 1. Apri il terminale nella cartella del progetto.
 2. Esegui il comando:
    ```powershell
-docker exec -it pihole pihole setpassword
-```
+   docker exec -it pihole pihole setpassword
+   ```
 3. Inserisci la nuova password quando richiesto
 4. Riprova ad accedere all'interfaccia web
 
