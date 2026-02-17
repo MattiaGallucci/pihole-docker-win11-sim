@@ -60,3 +60,11 @@ nslookup google.com 127.0.0.1 -> Address: 142.251.x.x
 # Risultato atteso per un sito bloccato
 nslookup doubleclick.net 127.0.0.1 -> Address: 0.0.0.0
 
+## 📱 Fase 4: Configurazione Dispositivi Mobili
+Per estendere la protezione del Pi-hole allo smartphone, il dispositivo deve "vedere" il PC all'interno della rete locale Wi-Fi.
+
+### 1. Trovare l'IP del PC Host
+Il telefono non può usare `127.0.0.1`. Deve puntare all'indirizzo IP privato del tuo computer.
+Dal terminale, esegui:
+```powershell
+ipconfig
