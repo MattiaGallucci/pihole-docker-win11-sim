@@ -83,3 +83,32 @@ New-NetFirewallRule -DisplayName "Pi-hole DNS" -Direction Inbound -LocalPort 53 
 3. Importante: Disabilita la funzione "DNS Privato" (Android) o i profili "DNS Sicuro" (iOS), altrimenti il telefono ignorerà il Pi-hole.
 ### 4. Verifica
 Apri la dashboard di Pi-hole sul PC (`http://localhost/admin`) e controlla il Query Log. Dovresti vedere apparire l'IP del tuo telefono nella colonna Client.
+
+## 🛡️ Fase 5: Liste di Blocco (Adlists) e Manutenzione
+Un Pi-hole senza liste è come un buttafuori senza una lista degli invitati. Per bloccare davvero la pubblicità e il tracciamento, dobbiamo "istruirlo".
+
+### 1. Dove trovare le liste
+Il punto di riferimento è **The Firebog**. Consigliamo di iniziare con le liste "Tick" (quelle testate che non rompono la navigazione):
+- [The Firebog - Non-checking Lists](https://v.firebog.net/hosts/lists.php?type=tick)
+
+### 2. Come aggiungere una lista
+1. Accedi al pannello admin: `http://localhost/admin`.
+2. Vai su **Adlists** nel menu a sinistra.
+3. Incolla l'URL della lista nel campo **Address**.
+4. Clicca su **Add**.
+
+### 3. Aggiornare la "Gravity" (Fondamentale) ⚠️
+Dopo aver aggiunto una lista, Pi-hole deve scaricare fisicamente i domini per renderli attivi.
+1. Vai su **Tools** -> **Update Gravity**.
+2. Clicca sul pulsante **Update**.
+3. Una volta terminato, vedrai il numero di "Domains on Adlist" salire vertiginosamente nella Dashboard.
+
+### 4. Backup e Ripristino
+Se hai intenzione di reinstallare tutto o spostarti su un Raspberry Pi fisico in futuro, usa la funzione **Teleporter**:
+- **Settings** -> **Teleporter** -> **Export**.
+Questo genererà un file compresso con tutta la tua configurazione (liste, whitelist, impostazioni DNS).
+
+---
+
+## 📝 Conclusioni
+Questa configurazione simulata su Windows 11 dimostra che è possibile avere un controllo totale sul proprio traffico DNS anche senza hardware dedicato, superando i limiti imposti dai router commerciali (come quelli TIM).
