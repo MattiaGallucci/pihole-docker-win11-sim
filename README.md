@@ -33,7 +33,6 @@ Se non riesci ad accedere all'interfaccia web (`http://localhost/admin`), non pr
    ```powershell
    docker exec -it pihole pihole setpassword
 
-
 ## 🌐 Fase 3: Risoluzione del "Suffix DNS" (Problema Router TIM)
 Uno dei problemi più complessi riscontrati è stato il **DNS Hijacking** o l'inserimento automatico del suffisso da parte del router TIM. 
 
