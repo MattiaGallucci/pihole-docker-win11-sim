@@ -21,3 +21,14 @@ Il cuore del progetto è il file `docker-compose.yml`. Questo file permette di c
   - `WEBPASSWORD`: La tua password per il pannello admin.
   - `BLOCKINGMODE`: Impostato su `NULL` (fondamentale per evitare loop di indirizzi `127.0.0.1` su Windows).
   - `FTLCONF_LOCAL_IPV4`: Indica l'IP del server DNS.
+
+## 🔐 Fase 2: Gestione Password e Primo Accesso
+Spesso la password definita nel file `docker-compose.yml` (`WEBPASSWORD`) potrebbe non essere recepita correttamente al primo avvio. 
+
+### Risoluzione errore Login:
+Se non riesci ad accedere all'interfaccia web (`http://localhost/admin`), non provare a indovinare la password. Usa il metodo **interattivo** che forza il reset direttamente nel container:
+
+1. Apri il terminale nella cartella del progetto.
+2. Esegui il comando:
+   ```powershell
+   docker exec -it pihole pihole setpassword
