@@ -32,3 +32,31 @@ Se non riesci ad accedere all'interfaccia web (`http://localhost/admin`), non pr
 2. Esegui il comando:
    ```powershell
    docker exec -it pihole pihole setpassword
+
+
+## 🌐 Fase 3: Risoluzione del "Suffix DNS" (Problema Router TIM)
+Uno dei problemi più complessi riscontrati è stato il **DNS Hijacking** o l'inserimento automatico del suffisso da parte del router TIM. 
+
+### Il problema:
+Eseguendo un `nslookup`, Windows aggiungeva automaticamente il suffisso `.homenet.telecomitalia.it` a ogni query (es. `google.com.homenet.telecomitalia.it`), causando il fallimento della risoluzione o risposte errate (`127.0.0.1`).
+
+### La soluzione definitiva:
+Per risolvere, abbiamo agito su più fronti:
+
+1. **Modifica sul Router**: Accesso alla pagina di configurazione del modem TIM (`192.168.1.1`) e impostazione manuale dei server DNS (es. Google 8.8.8.8) per evitare l'iniezione del suffisso.
+2. **Pulizia Cache Windows**:
+   ```powershell
+   ipconfig /flushdns
+3. **Rimozione forzata via PowerShell**:
+   ```powershell
+   Set-DnsClientGlobalSetting -SuffixSearchList @()
+
+### Test di verifica:
+Per confermare il corretto funzionamento, il comando `nslookup` deve restituire l'IP reale e non l'indirizzo di loopback per i siti validi:
+```powershell
+# Risultato atteso per un sito lecito
+nslookup google.com 127.0.0.1 -> Address: 142.251.x.x
+
+# Risultato atteso per un sito bloccato
+nslookup doubleclick.net 127.0.0.1 -> Address: 0.0.0.0
+
