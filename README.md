@@ -59,6 +59,7 @@ nslookup google.com 127.0.0.1 -> Address: 142.251.x.x
 
 # Risultato atteso per un sito bloccato
 nslookup doubleclick.net 127.0.0.1 -> Address: 0.0.0.0
+```
 
 ## 📱 Fase 4: Configurazione Dispositivi Mobili
 Per estendere la protezione del Pi-hole allo smartphone, il dispositivo deve "vedere" il PC all'interno della rete locale Wi-Fi.
@@ -68,3 +69,18 @@ Il telefono non può usare `127.0.0.1`. Deve puntare all'indirizzo IP privato de
 Dal terminale, esegui:
 ```powershell
 ipconfig
+```
+Segnati l'Indirizzo IPv4 (solitamente 192.168.1.xxx).
+### 2. Aprire il Firewall di Windows (Cruciale)
+Senza questo passaggio, il telefono non riuscirà a connettersi. Esegui questo comando in un Terminale (Amministratore) per permettere le richieste DNS in entrata sulla porta 53:
+```powershell
+New-NetFirewallRule -DisplayName "Pi-hole DNS" -Direction Inbound -LocalPort 53 -Protocol UDP -Action Allow
+```
+### 3. Configurazione Smartphone
+1. Vai nelle impostazioni Wi-Fi del telefono.
+2. Modifica la rete a cui sei connesso:
+  - Android: Imposta IP su Statico e inserisci l'IP del PC nel campo DNS 1.
+  - iOS: Configura DNS su Manuale e aggiungi l'IP del PC.
+3. Importante: Disabilita la funzione "DNS Privato" (Android) o i profili "DNS Sicuro" (iOS), altrimenti il telefono ignorerà il Pi-hole.
+### 4. Verifica
+Apri la dashboard di Pi-hole sul PC (`http://localhost/admin`) e controlla il Query Log. Dovresti vedere apparire l'IP del tuo telefono nella colonna Client.
