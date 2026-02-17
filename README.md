@@ -173,10 +173,12 @@ Eseguendo un `nslookup`, Windows aggiungeva automaticamente il suffisso `.homene
 ### La soluzione definitiva:
 Per risolvere, abbiamo agito su più fronti:
 
-1. **Modifica sul Router**: Accesso alla pagina di configurazione del modem TIM (`192.168.1.1`) e impostazione manuale dei server DNS (es. Google 8.8.8.8) per evitare l'iniezione del suffisso.
+1. **Modifica sul Router**: Accesso alla pagina di configurazione del modem TIM (`192.168.1.1`) e rimozione di `.homenet.telecomitalia.it` per evitare l'iniezione del suffisso.
 2. **Pulizia Cache Windows**:
    ```powershell
    ipconfig /flushdns
+   ipconfig /release
+   ipconfig /renew
    ```
 3. **Rimozione forzata via PowerShell**:
    ```powershell
